@@ -5,6 +5,10 @@
   <p>No Cloud. No Servers. Just military-grade mathematics on your device.</p>
 
   <p>
+    <strong><a href="https://skelegamerYT11.github.io/PassMana/">🌐 View the Official Website</a></strong>
+  </p>
+
+  <p>
     <a href="#features">Features</a> •
     <a href="#security">Security</a> •
     <a href="#installation">Installation</a> •
