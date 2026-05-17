@@ -1,0 +1,209 @@
+:root {
+    --bg-color: #0f172a;
+    --panel-bg: #1e293b;
+    --panel-border: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent: #3b82f6;
+    --danger: #ef4444;
+    --danger-bg: rgba(239, 68, 68, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.text-center { text-align: center; }
+.text-danger { color: var(--danger) !important; }
+
+/* Hero Section */
+.hero {
+    padding: 100px 0 60px;
+    border-bottom: 1px solid var(--panel-border);
+    background: radial-gradient(circle at 50% -20%, #1e293b 0%, var(--bg-color) 70%);
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.hero-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--accent);
+    margin-bottom: 24px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.03em;
+}
+
+.hero .subtitle {
+    font-size: 20px;
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.hero .description {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+/* Sections */
+.section {
+    padding: 80px 0;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.section-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--accent);
+}
+
+.section h2 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+/* Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 16px;
+    padding: 32px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card h3 svg {
+    color: var(--accent);
+}
+
+.card p {
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.card code {
+    background: rgba(0,0,0,0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+/* Danger Zone (Vulnerabilities) */
+.danger-zone {
+    border-top: 1px solid var(--panel-border);
+}
+
+.intro-text {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+}
+
+.vuln-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.vuln-item {
+    display: flex;
+    gap: 24px;
+    background: var(--danger-bg);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.vuln-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: rgba(239, 68, 68, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--danger);
+}
+
+.vuln-content h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.vuln-content p {
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.vuln-content strong {
+    color: var(--text-primary);
+}
+
+.vuln-content code {
+    color: var(--danger);
+    background: rgba(0,0,0,0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+/* Footer */
+footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--panel-border);
+    color: var(--text-secondary);
+    font-size: 14px;
+}
