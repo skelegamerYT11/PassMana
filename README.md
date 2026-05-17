@@ -1,6 +1,5 @@
 <div align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Check_green_icon.svg/1200px-Check_green_icon.svg.png" width="80" alt="Shield Icon" />
-  <h1>PassMana</h1>
+  <h1 style="font-size: 60px">🛡️ PassMana</h1>
   <p><strong>A Zero-Knowledge Desktop Password Manager.</strong></p>
   <p>No Cloud. No Servers. Just military-grade mathematics on your device.</p>
 
@@ -24,6 +23,7 @@ In today's landscape, most password breaches happen when the cloud databases of 
 
 The entire codebase is **100% Open Source**, allowing you to inspect it yourself and verify that your data is never sent over the network, and that the cryptography implements the highest security standards.
 
+<a name="features"></a>
 ## ✨ Features
 
 - **Fully Offline:** No HTTP requests, no cloud dependencies. Your data stays on your SSD.
@@ -32,6 +32,7 @@ The entire codebase is **100% Open Source**, allowing you to inspect it yourself
 - **Elegant UI:** Minimalist dark mode for a seamless, distraction-free experience.
 - **Built-in Generator:** Instantly create 20-character passwords resistant to any brute-force attack.
 
+<a name="security"></a>
 ## 🔐 Security Architecture (Zero-Knowledge)
 
 PassMana's security is guaranteed by math, not trust.
@@ -42,6 +43,7 @@ PassMana's security is guaranteed by math, not trust.
 4. If the password is wrong, the math simply fails. If it's right, the data is loaded into RAM.
 5. Whenever you add or edit a password, the entire Vault is re-encrypted before it touches the disk.
 
+<a name="installation"></a>
 ## 🚀 Installation (Development)
 
 Make sure you have [Node.js](https://nodejs.org/) installed.
@@ -58,6 +60,7 @@ npm install
 npm run dev
 ```
 
+<a name="build"></a>
 ## 📦 Build (Production)
 
 To create the installation executable (`.exe`) for your operating system:
