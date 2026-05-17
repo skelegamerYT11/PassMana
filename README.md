@@ -1,77 +1,77 @@
 <div align="center">
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Check_green_icon.svg/1200px-Check_green_icon.svg.png" width="80" alt="Shield Icon" />
   <h1>PassMana</h1>
-  <p><strong>Un Password Manager Desktop ad Architettura Zero-Knowledge.</strong></p>
-  <p>Nessun Cloud. Nessun Server. Solo crittografia matematica estrema sul tuo dispositivo.</p>
+  <p><strong>A Zero-Knowledge Desktop Password Manager.</strong></p>
+  <p>No Cloud. No Servers. Just military-grade mathematics on your device.</p>
 
   <p>
     <a href="#features">Features</a> •
-    <a href="#security">Sicurezza</a> •
-    <a href="#installation">Installazione</a> •
+    <a href="#security">Security</a> •
+    <a href="#installation">Installation</a> •
     <a href="#build">Build</a>
   </p>
 </div>
 
 ---
 
-## 🛡️ Perché PassMana?
+## 🛡️ Why PassMana?
 
-Nel panorama odierno, la maggior parte dei furti di password avviene quando i database cloud dei grandi gestori vengono compromessi. **PassMana è diverso.** Non essendoci server, l'unica superficie di attacco è il tuo computer. 
+In today's landscape, most password breaches happen when the cloud databases of major providers are compromised. **PassMana is different.** Because there are no servers, the only attack surface is your computer.
 
-Tutto il codice è **100% Open Source**, così puoi ispezionare tu stesso che i tuoi dati non vengano mai inviati via rete e che la crittografia implementata segua i più alti standard militari.
+The entire codebase is **100% Open Source**, allowing you to inspect it yourself and verify that your data is never sent over the network, and that the cryptography implements the highest security standards.
 
 ## ✨ Features
 
-- **Totalmente Offline:** Nessuna richiesta HTTP, nessuna dipendenza dal cloud. I tuoi dati restano sul tuo SSD.
-- **Crittografia Inviolabile:** Utilizza `libsodium` con **XChaCha20-Poly1305** per i dati e **Argon2id** per la Master Password.
-- **In-Memory Decryption:** I dati in chiaro vivono solo nella memoria RAM del Main Process di Electron e vengono distrutti (wiped) non appena l'app viene chiusa o bloccata. Nessuna traccia sul disco.
-- **Interfaccia Elegante:** Dark mode minimalista per un'esperienza d'uso fluida e concentrata.
-- **Generatore Integrato:** Crea password a 20 caratteri resistenti a qualsiasi attacco brute-force.
+- **Fully Offline:** No HTTP requests, no cloud dependencies. Your data stays on your SSD.
+- **Unbreakable Cryptography:** Uses `libsodium` with **XChaCha20-Poly1305** for your data and **Argon2id** for your Master Password.
+- **In-Memory Decryption:** Cleartext data lives only in the RAM of the Electron Main Process and is wiped immediately when the app is locked or closed. No traces left on the disk.
+- **Elegant UI:** Minimalist dark mode for a seamless, distraction-free experience.
+- **Built-in Generator:** Instantly create 20-character passwords resistant to any brute-force attack.
 
-## 🔐 Architettura di Sicurezza (Zero-Knowledge)
+## 🔐 Security Architecture (Zero-Knowledge)
 
-La sicurezza di PassMana è garantita dalla matematica, non dalla fiducia.
+PassMana's security is guaranteed by math, not trust.
 
-1. **La tua Master Password non viene mai salvata.** 
-2. All'avvio, la tua Master Password viene fatta passare attraverso **Argon2id** (con parametri di costo RAM e CPU elevatissimi) per generare una chiave crittografica a 256-bit.
-3. Questa chiave viene utilizzata da **XChaCha20-Poly1305** per tentare di decriptare il file locale `vault.enc`.
-4. Se la password è sbagliata, la matematica semplicemente fallisce. Se è giusta, i dati vengono caricati in RAM.
-5. Quando aggiungi o modifichi una password, l'intero Vault viene ri-criptato prima di toccare il disco.
+1. **Your Master Password is never saved.** 
+2. At startup, your Master Password is run through **Argon2id** (with extremely high RAM and CPU cost limits) to generate a 256-bit cryptographic key.
+3. This key is used by **XChaCha20-Poly1305** to attempt decrypting your local `vault.enc` file.
+4. If the password is wrong, the math simply fails. If it's right, the data is loaded into RAM.
+5. Whenever you add or edit a password, the entire Vault is re-encrypted before it touches the disk.
 
-## 🚀 Installazione (Sviluppo)
+## 🚀 Installation (Development)
 
-Assicurati di avere [Node.js](https://nodejs.org/) installato.
+Make sure you have [Node.js](https://nodejs.org/) installed.
 
 ```bash
-# 1. Clona il repository
-git clone https://github.com/IL_TUO_USERNAME/PassMana.git
+# 1. Clone the repository
+git clone https://github.com/skelegamerYT11/PassMana.git
 cd PassMana
 
-# 2. Installa le dipendenze
+# 2. Install dependencies
 npm install
 
-# 3. Avvia in modalità sviluppo
+# 3. Start development server
 npm run dev
 ```
 
-## 📦 Build (Produzione)
+## 📦 Build (Production)
 
-Per creare l'eseguibile di installazione (`.exe`) per il tuo sistema operativo:
+To create the installation executable (`.exe`) for your operating system:
 
 ```bash
 npm run build:electron
 ```
-L'installer si troverà nella cartella `release/`.
+The installer will be generated in the `release/` folder.
 
-## ⚠️ Vulnerabilità Note (Danger Zone)
+## ⚠️ Known Vulnerabilities (Danger Zone)
 
-Essendo un software 100% offline, PassMana è vulnerabile **solo** a queste tre cose:
-1. **Malware / Keylogger:** Se il tuo PC è compromesso, un hacker può leggere la tastiera mentre digiti la Master Password.
-2. **Fattore Umano:** Ingegneria sociale (phishing) o coercizione fisica.
-3. **Password Debole:** Se usi `12345678` come Master Password, Argon2id ti rallenterà, ma un attacco brute-force mirato la troverà. **Usa una Passphrase di 5 parole casuali.**
+Since it is a 100% offline software, PassMana is **only** vulnerable to these three vectors:
+1. **Malware / Keyloggers:** If your PC is compromised, a hacker can log your keystrokes when you type the Master Password.
+2. **The Human Factor:** Social engineering (phishing) or physical coercion (rubber-hose cryptanalysis).
+3. **Weak Master Passwords:** If your password is `12345678`, Argon2id will slow the attacker down, but a targeted brute-force will eventually crack it. **Use a Passphrase of 5 random words.**
 
 ---
 
 <div align="center">
-  <i>Costruito con React, Vite, Electron e Libsodium.</i>
+  <i>Built with React, Vite, Electron, and Libsodium. <br> ✨ Vibe Coded.</i>
 </div>

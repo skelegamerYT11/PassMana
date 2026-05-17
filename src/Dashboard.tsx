@@ -92,12 +92,12 @@ export function Dashboard({ onLock }: DashboardProps) {
             style={{ width: '100%', justifyContent: 'flex-start' }}
             onClick={() => setIsModalOpen(true)}
           >
-            <Plus size={18} /> Nuova Password
+            <Plus size={18} /> New Password
           </button>
         </div>
         
         <button className="secondary" style={{ width: '100%' }} onClick={onLock}>
-          <LogOut size={18} /> Blocca Vault
+          <LogOut size={18} /> Lock Vault
         </button>
       </div>
 
@@ -107,7 +107,7 @@ export function Dashboard({ onLock }: DashboardProps) {
             <Search size={18} />
             <input 
               type="text" 
-              placeholder="Cerca password..." 
+              placeholder="Search passwords..." 
               value={search}
               onChange={e => setSearch(e.target.value)}
             />
@@ -151,14 +151,14 @@ export function Dashboard({ onLock }: DashboardProps) {
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal">
-            <h2>Aggiungi Password</h2>
+            <h2>Add Password</h2>
             <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div className="form-group">
-                <label>Titolo (es. Google, GitHub)</label>
+                <label>Title (e.g. Google, GitHub)</label>
                 <input required value={title} onChange={e => setTitle(e.target.value)} />
               </div>
               <div className="form-group">
-                <label>Username o Email</label>
+                <label>Username or Email</label>
                 <input required value={username} onChange={e => setUsername(e.target.value)} />
               </div>
               <div className="form-group">
@@ -171,19 +171,19 @@ export function Dashboard({ onLock }: DashboardProps) {
                     onChange={e => setPassword(e.target.value)} 
                     style={{ flex: 1 }}
                   />
-                  <button type="button" className="secondary" onClick={generatePassword} title="Genera Password Sicura">
+                  <button type="button" className="secondary" onClick={generatePassword} title="Generate Secure Password">
                     <Key size={16} />
                   </button>
                 </div>
               </div>
               <div className="form-group">
-                <label>URL (Opzionale)</label>
+                <label>URL (Optional)</label>
                 <input value={url} onChange={e => setUrl(e.target.value)} />
               </div>
               
               <div className="modal-footer">
-                <button type="button" className="secondary" onClick={() => setIsModalOpen(false)}>Annulla</button>
-                <button type="submit">Salva</button>
+                <button type="button" className="secondary" onClick={() => setIsModalOpen(false)}>Cancel</button>
+                <button type="submit">Save</button>
               </div>
             </form>
           </div>

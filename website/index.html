@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +16,8 @@
             <div class="hero-content">
                 <i data-lucide="shield-check" class="hero-icon"></i>
                 <h1>PassMana</h1>
-                <p class="subtitle">Il Password Manager Desktop con architettura Zero-Knowledge.</p>
-                <p class="description">Nessun server. Nessun cloud. Nessuna traccia. Solo crittografia militare direttamente sul tuo dispositivo.</p>
+                <p class="subtitle">The Zero-Knowledge Desktop Password Manager.</p>
+                <p class="description">No servers. No cloud. No traces. Just military-grade cryptography right on your device.</p>
             </div>
         </div>
     </header>
@@ -27,20 +27,20 @@
         <section class="section">
             <div class="section-header">
                 <i data-lucide="lock" class="section-icon"></i>
-                <h2>Perché è (quasi) impossibile da bucare?</h2>
+                <h2>Why is it (almost) impossible to hack?</h2>
             </div>
             <div class="card-grid">
                 <div class="card">
                     <h3><i data-lucide="server-off"></i> Zero-Knowledge & Offline</h3>
-                    <p>La maggior parte dei furti di password avviene quando un server cloud viene bucato. PassMana non ha alcun server. I tuoi dati non lasciano mai il tuo PC. Il database (<code>vault.enc</code>) è criptato localmente e decriptato solo nella memoria RAM temporanea quando sblocchi l'app.</p>
+                    <p>Most password breaches happen when a cloud server is hacked. PassMana has no servers. Your data never leaves your PC. The database (<code>vault.enc</code>) is encrypted locally and decrypted only in temporary RAM when you unlock the app.</p>
                 </div>
                 <div class="card">
-                    <h3><i data-lucide="cpu"></i> Argon2id (Resistenza Brute-Force)</h3>
-                    <p>La tua Master Password non viene usata direttamente. Viene processata da <strong>Argon2id</strong> (il vincitore della Password Hashing Competition) con un costo altissimo di Memoria e CPU. Anche se un hacker rubasse il file del vault e usasse una farm di schede video (GPU) per indovinare la password, impiegherebbe ere geologiche per provare le combinazioni.</p>
+                    <h3><i data-lucide="cpu"></i> Argon2id (Brute-Force Resistance)</h3>
+                    <p>Your Master Password is never used directly. It gets processed by <strong>Argon2id</strong> (the winner of the Password Hashing Competition) with incredibly high Memory and CPU costs. Even if a hacker stole your vault file and used a GPU farm to guess the password, it would take geological eras.</p>
                 </div>
                 <div class="card">
                     <h3><i data-lucide="file-key-2"></i> XChaCha20-Poly1305</h3>
-                    <p>I dati sono sigillati utilizzando XChaCha20-Poly1305 tramite la celebre libreria libsodium. È un cifrario moderno, più veloce e sicuro del classico AES-256, totalmente immune agli attacchi basati sulle tempistiche (timing attacks).</p>
+                    <p>Your data is sealed using XChaCha20-Poly1305 via the renowned libsodium library. It is a modern cipher, faster and more secure than classic AES-256, and completely immune to timing attacks.</p>
                 </div>
             </div>
         </section>
@@ -48,32 +48,32 @@
         <section class="section danger-zone">
             <div class="section-header">
                 <i data-lucide="alert-triangle" class="section-icon text-danger"></i>
-                <h2>Gli unici modi per bucarlo</h2>
+                <h2>The only ways to break it</h2>
             </div>
-            <p class="intro-text">La crittografia matematica è perfetta. I computer quantistici non sono ancora una minaccia per questo livello di sicurezza. L'unico anello debole nel sistema sei <strong>tu</strong> o il tuo <strong>ambiente operativo</strong>. Ecco le uniche tre vulnerabilità esistenti:</p>
+            <p class="intro-text">The cryptography is mathematically perfect. Quantum computers are not yet a threat to this level of security. The only weak link in the system is <strong>you</strong> or your <strong>operating environment</strong>. Here are the only three existing vulnerabilities:</p>
             
             <div class="vuln-list">
                 <div class="vuln-item">
                     <div class="vuln-icon"><i data-lucide="bug"></i></div>
                     <div class="vuln-content">
-                        <h3>1. Malware / Keylogger sul tuo PC</h3>
-                        <p>Se il tuo computer è infetto da un trojan o un keylogger avanzato, l'hacker non ha bisogno di rompere la crittografia. Registrerà i tasti che premi mentre digiti la Master Password, oppure leggerà direttamente la memoria RAM mentre PassMana è sbloccato. <strong>Soluzione:</strong> Mantieni il PC pulito e scarica software solo da fonti attendibili.</p>
+                        <h3>1. Malware / Keyloggers on your PC</h3>
+                        <p>If your computer is infected with a trojan or an advanced keylogger, the hacker doesn't need to break the cryptography. They will simply record the keys you press while typing your Master Password, or dump the RAM while PassMana is unlocked. <strong>Solution:</strong> Keep your OS clean and only download software from trusted sources.</p>
                     </div>
                 </div>
 
                 <div class="vuln-item">
                     <div class="vuln-icon"><i data-lucide="user-x"></i></div>
                     <div class="vuln-content">
-                        <h3>2. Ingegneria Sociale e Tortura (Rubber-hose Cryptanalysis)</h3>
-                        <p>La tecnica hacker più vecchia del mondo. Qualcuno potrebbe ingannarti (phishing), spiarti mentre digiti la password (shoulder surfing), o in scenari estremi, minacciarti fisicamente finché non gliela riveli. La matematica non può proteggerti dalle minacce fisiche o dall'inganno mentale.</p>
+                        <h3>2. Social Engineering & Rubber-hose Cryptanalysis</h3>
+                        <p>The oldest hacking technique in the world. Someone could trick you (phishing), spy on you while typing (shoulder surfing), or in extreme scenarios, physically threaten you until you reveal it. Math cannot protect you from physical threats or mental deception.</p>
                     </div>
                 </div>
 
                 <div class="vuln-item">
                     <div class="vuln-icon"><i data-lucide="key"></i></div>
                     <div class="vuln-content">
-                        <h3>3. Una Master Password debole</h3>
-                        <p>Se la tua password è <code>"Juventus123"</code> o il nome del tuo cane, Argon2id ti proteggerà per un po', ma un attacco mirato con un dizionario di parole comuni finirà per trovarla in qualche ora. <strong>Soluzione:</strong> Usa una Passphrase di 5 o più parole casuali (es. <code>"Oceano-Eclissi-Rame-Vortice-Silicio"</code>).</p>
+                        <h3>3. A weak Master Password</h3>
+                        <p>If your password is <code>"Password123"</code> or your dog's name, Argon2id will protect you for a bit, but a targeted dictionary attack will eventually find it in a few hours. <strong>Solution:</strong> Use a Passphrase of 5 or more random words (e.g. <code>"Ocean-Eclipse-Copper-Vortex-Silicon"</code>).</p>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
 
     <footer>
         <div class="container text-center">
-            <p>PassMana &copy; 2026 - Crittografia Militare Zero-Knowledge.</p>
+            <p>PassMana &copy; 2026 - Zero-Knowledge Military Cryptography. <br> ✨ Vibe Coded.</p>
         </div>
     </footer>
 

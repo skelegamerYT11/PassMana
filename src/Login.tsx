@@ -25,10 +25,10 @@ export function Login({ onUnlock }: LoginProps) {
     
     if (isSetup) {
       if (password !== confirmPassword) {
-        return setError('Le password non coincidono.');
+        return setError('Passwords do not match.');
       }
       if (password.length < 8) {
-        return setError('La Master Password deve avere almeno 8 caratteri.');
+        return setError('Master Password must be at least 8 characters long.');
       }
       
       const success = await window.vaultAPI.setup(password);
@@ -37,14 +37,14 @@ export function Login({ onUnlock }: LoginProps) {
         setPassword('');
         setConfirmPassword('');
       } else {
-        setError('Errore durante la creazione del Vault.');
+        setError('Error creating the Vault.');
       }
     } else {
       const success = await window.vaultAPI.unlock(password);
       if (success) {
         onUnlock();
       } else {
-        setError('Master Password errata.');
+        setError('Incorrect Master Password.');
       }
     }
   };
@@ -56,8 +56,8 @@ export function Login({ onUnlock }: LoginProps) {
       <div className="auth-box">
         <div className="auth-header">
           {isSetup ? <ShieldAlert size={48} color="var(--accent)" style={{marginBottom: 16}} /> : <Lock size={48} color="var(--accent)" style={{marginBottom: 16}} />}
-          <h1>{isSetup ? 'Crea il tuo Vault' : 'Sblocca il Vault'}</h1>
-          <p>{isSetup ? 'Scegli una Master Password molto sicura. Se la perdi, i tuoi dati saranno irrecuperabili.' : 'Inserisci la tua Master Password per decriptare i tuoi dati.'}</p>
+          <h1>{isSetup ? 'Create your Vault' : 'Unlock the Vault'}</h1>
+          <p>{isSetup ? 'Choose a very strong Master Password. If you lose it, your data is unrecoverable.' : 'Enter your Master Password to decrypt your data.'}</p>
         </div>
         
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -73,7 +73,7 @@ export function Login({ onUnlock }: LoginProps) {
 
           {isSetup && (
             <div className="form-group">
-              <label>Conferma Master Password</label>
+              <label>Confirm Master Password</label>
               <input 
                 type="password" 
                 value={confirmPassword}
@@ -86,7 +86,7 @@ export function Login({ onUnlock }: LoginProps) {
 
           <button type="submit" style={{ width: '100%', marginTop: 8 }}>
             {isSetup ? <ShieldAlert size={18} /> : <Unlock size={18} />}
-            {isSetup ? 'Inizializza Vault Sicuro' : 'Sblocca'}
+            {isSetup ? 'Initialize Secure Vault' : 'Unlock'}
           </button>
         </form>
       </div>
