@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Plus, LogOut, Copy, ExternalLink, Key, Eye, EyeOff } from 'lucide-react';
+import { Search, Plus, LogOut, Copy, ExternalLink, Key, Eye, EyeOff, Trash2 } from 'lucide-react';
 
 interface PasswordEntry {
   id: string;
@@ -58,6 +58,14 @@ export function Dashboard({ onLock }: DashboardProps) {
     setUsername('');
     setPassword('');
     setUrl('');
+  };
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete this password? This action cannot be undone.")) {
+      const newEntries = entries.filter(e => e.id !== id);
+      await window.vaultAPI.saveEntries(newEntries);
+      setEntries(newEntries);
+    }
   };
 
   const generatePassword = () => {
@@ -121,11 +129,16 @@ export function Dashboard({ onLock }: DashboardProps) {
                 <div className="card-title">
                   {entry.title}
                 </div>
-                {entry.url && (
-                  <button className="icon-btn" onClick={() => window.open(entry.url, '_blank')}>
-                    <ExternalLink size={16} />
+                <div style={{ display: 'flex', gap: 8 }}>
+                  {entry.url && (
+                    <button className="icon-btn" onClick={() => window.open(entry.url, '_blank')}>
+                      <ExternalLink size={16} />
+                    </button>
+                  )}
+                  <button className="icon-btn text-danger" onClick={() => handleDelete(entry.id)} title="Delete Password">
+                    <Trash2 size={16} />
                   </button>
-                )}
+                </div>
               </div>
               <div className="card-username">{entry.username}</div>
               
