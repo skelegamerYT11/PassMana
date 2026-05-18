@@ -17,6 +17,8 @@
 
 ---
 
+![PassMana Banner](https://imgur.com/gfRWl9h.png)
+
 ## 🛡️ Why PassMana?
 
 In today's landscape, most password breaches happen when the cloud databases of major providers are compromised. **PassMana is different.** Because there are no servers, the only attack surface is your computer.
