@@ -17,13 +17,14 @@
 
 ---
 
-![PassMana Banner](https://imgur.com/gfRWl9h.png)
-
 ## 🛡️ Why PassMana?
 
 In today's landscape, most password breaches happen when the cloud databases of major providers are compromised. **PassMana is different.** Because there are no servers, the only attack surface is your computer.
 
 The entire codebase is **100% Open Source**, allowing you to inspect it yourself and verify that your data is never sent over the network, and that the cryptography implements the highest security standards.
+
+![PassMana Banner](https://imgur.com/gfRWl9h.png)
+
 
 <a name="features"></a>
 ## ✨ Features
