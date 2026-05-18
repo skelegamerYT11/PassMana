@@ -7,5 +7,6 @@ contextBridge.exposeInMainWorld('vaultAPI', {
   lock: () => ipcRenderer.invoke('vault:lock'),
   isUnlocked: () => ipcRenderer.invoke('vault:isUnlocked'),
   getEntries: () => ipcRenderer.invoke('vault:getEntries'),
-  saveEntries: (entries: any[]) => ipcRenderer.invoke('vault:saveEntries', entries)
+  saveEntries: (entries: any[]) => ipcRenderer.invoke('vault:saveEntries', entries),
+  updateTitlebar: (color: string, symbolColor: string) => ipcRenderer.invoke('titlebar:update', color, symbolColor)
 });

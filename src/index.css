@@ -344,6 +344,16 @@ body.theme-rainbow {
   --accent-hover: #059669;
 }
 
+body.theme-custom {
+  --bg-color: #0c1020;
+  --panel-bg: #141b35;
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --text-primary: #f8fafc;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --accent: #f43f5e;
+  --accent-hover: #e11d48;
+}
+
 /* Rainbow border animation for Vibrant Rainbow theme */
 body.theme-rainbow .password-card {
   border: 1px solid transparent;

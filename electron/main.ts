@@ -151,3 +151,17 @@ ipcMain.handle('vault:saveEntries', async (_, entries: any[]) => {
   }
 });
 
+ipcMain.handle('titlebar:update', (event, color: string, symbolColor: string) => {
+  const win = BrowserWindow.fromWebContents(event.sender);
+  if (win && win.setTitleBarOverlay) {
+    try {
+      win.setTitleBarOverlay({
+        color: color,
+        symbolColor: symbolColor,
+      });
+    } catch (e) {
+      console.error("Failed to update titlebar overlay:", e);
+    }
+  }
+});
+

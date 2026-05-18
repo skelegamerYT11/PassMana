@@ -1,5 +1,44 @@
 import { useState, useEffect } from 'react';
-import { Search, Plus, LogOut, Copy, ExternalLink, Key, Eye, EyeOff, Trash2, Menu, AlertTriangle } from 'lucide-react';
+import { Search, Plus, LogOut, Copy, ExternalLink, Key, Eye, EyeOff, Trash2, Menu, AlertTriangle, Sliders } from 'lucide-react';
+
+const hexToRgba = (hex: string, alpha: number) => {
+  try {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  } catch (e) {
+    return `rgba(255, 255, 255, ${alpha})`;
+  }
+};
+
+const adjustColorBrightness = (hex: string, percent: number) => {
+  try {
+    let R = parseInt(hex.substring(1, 3), 16);
+    let G = parseInt(hex.substring(3, 5), 16);
+    let B = parseInt(hex.substring(5, 7), 16);
+
+    R = parseInt(((R * (100 + percent)) / 100).toString());
+    G = parseInt(((G * (100 + percent)) / 100).toString());
+    B = parseInt(((B * (100 + percent)) / 100).toString());
+
+    R = R < 255 ? R : 255;
+    G = G < 255 ? G : 255;
+    B = B < 255 ? B : 255;
+
+    R = R > 0 ? R : 0;
+    G = G > 0 ? G : 0;
+    B = B > 0 ? B : 0;
+
+    const rHex = R.toString(16).padStart(2, '0');
+    const gHex = G.toString(16).padStart(2, '0');
+    const bHex = B.toString(16).padStart(2, '0');
+
+    return `#${rHex}${gHex}${bHex}`;
+  } catch (e) {
+    return hex;
+  }
+};
 
 interface PasswordEntry {
   id: string;
@@ -22,6 +61,33 @@ export function Dashboard({ onLock }: DashboardProps) {
   // Theme states
   const [theme, setTheme] = useState(localStorage.getItem('passmana-theme') || 'default');
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+  const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
+
+  // Custom colors state
+  const [customColors, setCustomColors] = useState(() => {
+    try {
+      const saved = localStorage.getItem('passmana-custom-theme');
+      return saved ? JSON.parse(saved) : {
+        bg: '#0c1020',
+        panel: '#141b35',
+        accent: '#f43f5e',
+        text: '#f8fafc'
+      };
+    } catch (e) {
+      return {
+        bg: '#0c1020',
+        panel: '#141b35',
+        accent: '#f43f5e',
+        text: '#f8fafc'
+      };
+    }
+  });
+
+  const handleCustomColorChange = (key: string, value: string) => {
+    const updated = { ...customColors, [key]: value };
+    setCustomColors(updated);
+    localStorage.setItem('passmana-custom-theme', JSON.stringify(updated));
+  };
 
   // Custom Delete target state
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
@@ -39,7 +105,40 @@ export function Dashboard({ onLock }: DashboardProps) {
   useEffect(() => {
     document.body.className = `theme-${theme}`;
     localStorage.setItem('passmana-theme', theme);
-  }, [theme]);
+
+    if (theme === 'custom') {
+      document.body.style.setProperty('--bg-color', customColors.bg);
+      document.body.style.setProperty('--panel-bg', customColors.panel);
+      document.body.style.setProperty('--panel-border', hexToRgba(customColors.text, 0.1));
+      document.body.style.setProperty('--accent', customColors.accent);
+      document.body.style.setProperty('--accent-hover', adjustColorBrightness(customColors.accent, -20));
+      document.body.style.setProperty('--text-primary', customColors.text);
+      document.body.style.setProperty('--text-secondary', hexToRgba(customColors.text, 0.6));
+      
+      if (window.vaultAPI && window.vaultAPI.updateTitlebar) {
+        window.vaultAPI.updateTitlebar(customColors.bg, customColors.text);
+      }
+    } else {
+      document.body.style.removeProperty('--bg-color');
+      document.body.style.removeProperty('--panel-bg');
+      document.body.style.removeProperty('--panel-border');
+      document.body.style.removeProperty('--accent');
+      document.body.style.removeProperty('--accent-hover');
+      document.body.style.removeProperty('--text-primary');
+      document.body.style.removeProperty('--text-secondary');
+
+      const nativeColors: Record<string, { bg: string, text: string }> = {
+        default: { bg: '#0f172a', text: '#f8fafc' },
+        midnight: { bg: '#050505', text: '#f3f4f6' },
+        purple: { bg: '#110724', text: '#fae8ff' },
+        rainbow: { bg: '#0a0f1d', text: '#f9fafb' }
+      };
+      const colors = nativeColors[theme] || nativeColors.default;
+      if (window.vaultAPI && window.vaultAPI.updateTitlebar) {
+        window.vaultAPI.updateTitlebar(colors.bg, colors.text);
+      }
+    }
+  }, [theme, customColors]);
 
   const loadEntries = async () => {
     try {
@@ -134,7 +233,12 @@ export function Dashboard({ onLock }: DashboardProps) {
             />
           </div>
 
-          <div style={{ position: 'relative' }}>
+          <div style={{ display: 'flex', gap: 8, position: 'relative' }}>
+            {theme === 'custom' && (
+              <button className="secondary" onClick={() => setIsCustomizerOpen(true)} style={{ padding: '8px 12px' }} title="Customize Theme">
+                <Sliders size={18} /> Customize
+              </button>
+            )}
             <button className="secondary" onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)} style={{ padding: '8px 16px' }}>
               <Menu size={18} /> Theme
             </button>
@@ -151,6 +255,9 @@ export function Dashboard({ onLock }: DashboardProps) {
                 </button>
                 <button className={theme === 'rainbow' ? 'active' : ''} onClick={() => { setTheme('rainbow'); setIsThemeMenuOpen(false); }}>
                   Vibrant Rainbow
+                </button>
+                <button className={theme === 'custom' ? 'active' : ''} onClick={() => { setTheme('custom'); setIsThemeMenuOpen(false); }}>
+                  Custom Theme
                 </button>
               </div>
             )}
@@ -254,6 +361,67 @@ export function Dashboard({ onLock }: DashboardProps) {
             <div className="modal-footer" style={{ marginTop: 0 }}>
               <button className="secondary" onClick={() => setDeleteTargetId(null)}>Cancel</button>
               <button style={{ backgroundColor: 'var(--danger)' }} onClick={confirmDelete}>Delete</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isCustomizerOpen && (
+        <div className="modal-overlay">
+          <div className="modal" style={{ maxWidth: '400px' }}>
+            <h2>Customize Theme</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '13px', marginBottom: '20px' }}>
+              Create your own look with dynamic live previews.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              
+              <div className="form-group">
+                <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 500 }}>Background Color</span>
+                  <span style={{ fontSize: '12px', fontFamily: 'monospace', color: 'var(--text-secondary)' }}>{customColors.bg}</span>
+                </label>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                  <input type="color" value={customColors.bg} onChange={e => handleCustomColorChange('bg', e.target.value)} style={{ width: 44, height: 36, padding: 0, cursor: 'pointer', border: '1px solid var(--panel-border)', borderRadius: '6px', backgroundColor: 'transparent' }} />
+                  <input type="text" value={customColors.bg} onChange={e => handleCustomColorChange('bg', e.target.value)} style={{ flex: 1, height: 36, fontSize: '14px' }} />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 500 }}>Panel / Card Color</span>
+                  <span style={{ fontSize: '12px', fontFamily: 'monospace', color: 'var(--text-secondary)' }}>{customColors.panel}</span>
+                </label>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                  <input type="color" value={customColors.panel} onChange={e => handleCustomColorChange('panel', e.target.value)} style={{ width: 44, height: 36, padding: 0, cursor: 'pointer', border: '1px solid var(--panel-border)', borderRadius: '6px', backgroundColor: 'transparent' }} />
+                  <input type="text" value={customColors.panel} onChange={e => handleCustomColorChange('panel', e.target.value)} style={{ flex: 1, height: 36, fontSize: '14px' }} />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 500 }}>Accent Color</span>
+                  <span style={{ fontSize: '12px', fontFamily: 'monospace', color: 'var(--text-secondary)' }}>{customColors.accent}</span>
+                </label>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                  <input type="color" value={customColors.accent} onChange={e => handleCustomColorChange('accent', e.target.value)} style={{ width: 44, height: 36, padding: 0, cursor: 'pointer', border: '1px solid var(--panel-border)', borderRadius: '6px', backgroundColor: 'transparent' }} />
+                  <input type="text" value={customColors.accent} onChange={e => handleCustomColorChange('accent', e.target.value)} style={{ flex: 1, height: 36, fontSize: '14px' }} />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 500 }}>Text / Icon Color</span>
+                  <span style={{ fontSize: '12px', fontFamily: 'monospace', color: 'var(--text-secondary)' }}>{customColors.text}</span>
+                </label>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                  <input type="color" value={customColors.text} onChange={e => handleCustomColorChange('text', e.target.value)} style={{ width: 44, height: 36, padding: 0, cursor: 'pointer', border: '1px solid var(--panel-border)', borderRadius: '6px', backgroundColor: 'transparent' }} />
+                  <input type="text" value={customColors.text} onChange={e => handleCustomColorChange('text', e.target.value)} style={{ flex: 1, height: 36, fontSize: '14px' }} />
+                </div>
+              </div>
+
+              <div className="modal-footer" style={{ marginTop: '12px' }}>
+                <button onClick={() => setIsCustomizerOpen(false)} style={{ width: '100%' }}>Done</button>
+              </div>
             </div>
           </div>
         </div>

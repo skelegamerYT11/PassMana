@@ -6,6 +6,7 @@ export interface VaultAPI {
   isUnlocked: () => Promise<boolean>;
   getEntries: () => Promise<any[]>;
   saveEntries: (entries: any[]) => Promise<boolean>;
+  updateTitlebar: (color: string, symbolColor: string) => Promise<void>;
 }
 
 declare global {
