@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Plus, LogOut, Copy, ExternalLink, Key, Eye, EyeOff, Trash2 } from 'lucide-react';
+import { Search, Plus, LogOut, Copy, ExternalLink, Key, Eye, EyeOff, Trash2, Menu, AlertTriangle } from 'lucide-react';
 
 interface PasswordEntry {
   id: string;
@@ -19,6 +19,13 @@ export function Dashboard({ onLock }: DashboardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showPassword, setShowPassword] = useState<Record<string, boolean>>({});
 
+  // Theme states
+  const [theme, setTheme] = useState(localStorage.getItem('passmana-theme') || 'default');
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+
+  // Custom Delete target state
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+
   // New entry state
   const [title, setTitle] = useState('');
   const [username, setUsername] = useState('');
@@ -28,6 +35,11 @@ export function Dashboard({ onLock }: DashboardProps) {
   useEffect(() => {
     loadEntries();
   }, []);
+
+  useEffect(() => {
+    document.body.className = `theme-${theme}`;
+    localStorage.setItem('passmana-theme', theme);
+  }, [theme]);
 
   const loadEntries = async () => {
     try {
@@ -60,11 +72,12 @@ export function Dashboard({ onLock }: DashboardProps) {
     setUrl('');
   };
 
-  const handleDelete = async (id: string) => {
-    if (window.confirm("Are you sure you want to delete this password? This action cannot be undone.")) {
-      const newEntries = entries.filter(e => e.id !== id);
+  const confirmDelete = async () => {
+    if (deleteTargetId) {
+      const newEntries = entries.filter(e => e.id !== deleteTargetId);
       await window.vaultAPI.saveEntries(newEntries);
       setEntries(newEntries);
+      setDeleteTargetId(null);
     }
   };
 
@@ -120,6 +133,28 @@ export function Dashboard({ onLock }: DashboardProps) {
               onChange={e => setSearch(e.target.value)}
             />
           </div>
+
+          <div style={{ position: 'relative' }}>
+            <button className="secondary" onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)} style={{ padding: '8px 16px' }}>
+              <Menu size={18} /> Theme
+            </button>
+            {isThemeMenuOpen && (
+              <div className="theme-dropdown">
+                <button className={theme === 'default' ? 'active' : ''} onClick={() => { setTheme('default'); setIsThemeMenuOpen(false); }}>
+                  Default Blue
+                </button>
+                <button className={theme === 'midnight' ? 'active' : ''} onClick={() => { setTheme('midnight'); setIsThemeMenuOpen(false); }}>
+                  Midnight Dark
+                </button>
+                <button className={theme === 'purple' ? 'active' : ''} onClick={() => { setTheme('purple'); setIsThemeMenuOpen(false); }}>
+                  Purple Dream
+                </button>
+                <button className={theme === 'rainbow' ? 'active' : ''} onClick={() => { setTheme('rainbow'); setIsThemeMenuOpen(false); }}>
+                  Vibrant Rainbow
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="password-list">
@@ -135,7 +170,7 @@ export function Dashboard({ onLock }: DashboardProps) {
                       <ExternalLink size={16} />
                     </button>
                   )}
-                  <button className="icon-btn text-danger" onClick={() => handleDelete(entry.id)} title="Delete Password">
+                  <button className="icon-btn text-danger" onClick={() => setDeleteTargetId(entry.id)} title="Delete Password">
                     <Trash2 size={16} />
                   </button>
                 </div>
@@ -199,6 +234,27 @@ export function Dashboard({ onLock }: DashboardProps) {
                 <button type="submit">Save</button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {deleteTargetId && (
+        <div className="modal-overlay">
+          <div className="modal delete-modal">
+            <div className="delete-modal-icon">
+              <AlertTriangle size={24} />
+            </div>
+            <h2>Confirm Deletion</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '14px', margin: '8px 0' }}>
+              Are you sure you want to delete this password?
+            </p>
+            <p style={{ color: 'var(--danger)', fontSize: '13px', fontWeight: 500, marginBottom: '24px' }}>
+              This action is permanent and cannot be undone.
+            </p>
+            <div className="modal-footer" style={{ marginTop: 0 }}>
+              <button className="secondary" onClick={() => setDeleteTargetId(null)}>Cancel</button>
+              <button style={{ backgroundColor: 'var(--danger)' }} onClick={confirmDelete}>Delete</button>
+            </div>
           </div>
         </div>
       )}
