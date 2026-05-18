@@ -44,7 +44,8 @@ function App() {
         default: { bg: '#0f172a', text: '#f8fafc' },
         midnight: { bg: '#050505', text: '#f3f4f6' },
         purple: { bg: '#110724', text: '#fae8ff' },
-        rainbow: { bg: '#0a0f1d', text: '#f9fafb' }
+        rainbow: { bg: '#0a0f1d', text: '#f9fafb' },
+        orange: { bg: '#0d0907', text: '#fff0e5' }
       };
       const colors = nativeColors[theme] || nativeColors.default;
       window.vaultAPI.updateTitlebar(colors.bg, colors.text);

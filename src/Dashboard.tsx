@@ -131,7 +131,8 @@ export function Dashboard({ onLock }: DashboardProps) {
         default: { bg: '#0f172a', text: '#f8fafc' },
         midnight: { bg: '#050505', text: '#f3f4f6' },
         purple: { bg: '#110724', text: '#fae8ff' },
-        rainbow: { bg: '#0a0f1d', text: '#f9fafb' }
+        rainbow: { bg: '#0a0f1d', text: '#f9fafb' },
+        orange: { bg: '#0d0907', text: '#fff0e5' }
       };
       const colors = nativeColors[theme] || nativeColors.default;
       if (window.vaultAPI && window.vaultAPI.updateTitlebar) {
@@ -255,6 +256,9 @@ export function Dashboard({ onLock }: DashboardProps) {
                 </button>
                 <button className={theme === 'rainbow' ? 'active' : ''} onClick={() => { setTheme('rainbow'); setIsThemeMenuOpen(false); }}>
                   Vibrant Rainbow
+                </button>
+                <button className={theme === 'orange' ? 'active' : ''} onClick={() => { setTheme('orange'); setIsThemeMenuOpen(false); }}>
+                  Sunset Glow
                 </button>
                 <button className={theme === 'custom' ? 'active' : ''} onClick={() => { setTheme('custom'); setIsThemeMenuOpen(false); }}>
                   Custom Theme

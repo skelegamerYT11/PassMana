@@ -344,6 +344,16 @@ body.theme-rainbow {
   --accent-hover: #059669;
 }
 
+body.theme-orange {
+  --bg-color: #0d0907;
+  --panel-bg: #1a120e;
+  --panel-border: #33231b;
+  --text-primary: #fff0e5;
+  --text-secondary: #cfa890;
+  --accent: #f97316;
+  --accent-hover: #ea580c;
+}
+
 body.theme-custom {
   --bg-color: #0c1020;
   --panel-bg: #141b35;
