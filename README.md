@@ -23,7 +23,7 @@ In today's landscape, most password breaches happen when the cloud databases of 
 
 The entire codebase is **100% Open Source**, allowing you to inspect it yourself and verify that your data is never sent over the network, and that the cryptography implements the highest security standards.
 
-![PassMana Banner](https://imgur.com/gfRWl9h.png)
+![PassMana Banner](https://imgur.com/HeQXpqC.png)
 
 
 <a name="features"></a>
