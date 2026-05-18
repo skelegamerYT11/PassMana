@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
 
     <header class="hero">
@@ -17,7 +19,8 @@
                 <i data-lucide="shield-check" class="hero-icon"></i>
                 <h1>PassMana</h1>
                 <p class="subtitle">The Zero-Knowledge Desktop Password Manager.</p>
-                <p class="description">No servers. No cloud. No traces. Just military-grade cryptography right on your device.</p>
+                <p class="description">No servers. No cloud. No traces. Just military-grade cryptography right on your
+                    device.</p>
                 <div class="hero-buttons">
                     <a href="https://github.com/skelegamerYT11/PassMana" class="btn btn-github" target="_blank">
                         <i data-lucide="github"></i> View on GitHub
@@ -28,7 +31,7 @@
     </header>
 
     <main class="container">
-        
+
         <section class="section">
             <div class="section-header">
                 <i data-lucide="lock" class="section-icon"></i>
@@ -37,15 +40,22 @@
             <div class="card-grid">
                 <div class="card">
                     <h3><i data-lucide="server-off"></i> Zero-Knowledge & Offline</h3>
-                    <p>Most password breaches happen when a cloud server is hacked. PassMana has no servers. Your data never leaves your PC. The database (<code>vault.enc</code>) is encrypted locally and decrypted only in temporary RAM when you unlock the app.</p>
+                    <p>Most password breaches happen when a cloud server is hacked. PassMana has no servers. Your data
+                        never leaves your PC. The database (<code>vault.enc</code>) is encrypted locally and decrypted
+                        only in temporary RAM when you unlock the app.</p>
                 </div>
                 <div class="card">
                     <h3><i data-lucide="cpu"></i> Argon2id (Brute-Force Resistance)</h3>
-                    <p>Your Master Password is never used directly. It gets processed by <strong>Argon2id</strong> (the winner of the Password Hashing Competition) with incredibly high Memory and CPU costs. Even if a hacker stole your vault file and used a GPU farm to guess the password, it would take geological eras.</p>
+                    <p>Your Master Password is never used directly. It gets processed by <strong>Argon2id</strong> (the
+                        winner of the Password Hashing Competition) with incredibly high Memory and CPU costs. Even if a
+                        hacker stole your vault file and used a GPU farm to guess the password, it would take geological
+                        eras.</p>
                 </div>
                 <div class="card">
                     <h3><i data-lucide="file-key-2"></i> XChaCha20-Poly1305</h3>
-                    <p>Your data is sealed using XChaCha20-Poly1305 via the renowned libsodium library. It is a modern cipher, faster and more secure than classic AES-256, and completely immune to timing attacks.</p>
+                    <p>Your data is sealed using XChaCha20-Poly1305 via the renowned libsodium library. It is a modern
+                        cipher, faster and more secure than classic AES-256, and completely immune to timing attacks.
+                    </p>
                 </div>
             </div>
         </section>
@@ -55,14 +65,20 @@
                 <i data-lucide="alert-triangle" class="section-icon text-danger"></i>
                 <h2>The only ways to break it</h2>
             </div>
-            <p class="intro-text">The cryptography is mathematically perfect. Quantum computers are not yet a threat to 256-bit symmetric ciphers (like XChaCha20-Poly1305). The only weak link in the system is <strong>you</strong> or your <strong>operating environment</strong>. Here are the only three existing vulnerabilities:</p>
-            
+            <p class="intro-text">The cryptography is mathematically perfect. Quantum computers are not yet a threat to
+                256-bit symmetric ciphers (like XChaCha20-Poly1305). The only weak link in the system is
+                <strong>you</strong> or your <strong>operating environment</strong>. Here are the only three existing
+                vulnerabilities:</p>
+
             <div class="vuln-list">
                 <div class="vuln-item">
                     <div class="vuln-icon"><i data-lucide="bug"></i></div>
                     <div class="vuln-content">
                         <h3>1. Malware / Keyloggers on your PC</h3>
-                        <p>If your computer is infected with a trojan or an advanced keylogger, the hacker doesn't need to break the cryptography. They will simply record the keys you press while typing your Master Password, or dump the RAM while PassMana is unlocked. <strong>Solution:</strong> Keep your OS clean and only download software from trusted sources.</p>
+                        <p>If your computer is infected with a trojan or an advanced keylogger, the hacker doesn't need
+                            to break the cryptography. They will simply record the keys you press while typing your
+                            Master Password, or dump the RAM while PassMana is unlocked. <strong>Solution:</strong> Keep
+                            your OS clean and only download software from trusted sources.</p>
                     </div>
                 </div>
 
@@ -70,7 +86,9 @@
                     <div class="vuln-icon"><i data-lucide="user-x"></i></div>
                     <div class="vuln-content">
                         <h3>2. Social Engineering & Rubber-hose Cryptanalysis</h3>
-                        <p>The oldest hacking technique in the world. Someone could trick you (phishing), spy on you while typing (shoulder surfing), or in extreme scenarios, physically threaten you until you reveal it. Math cannot protect you from physical threats or mental deception.</p>
+                        <p>The oldest hacking technique in the world. Someone could trick you (phishing), spy on you
+                            while typing (shoulder surfing), or in extreme scenarios, physically threaten you until you
+                            reveal it. Math cannot protect you from physical threats or mental deception.</p>
                     </div>
                 </div>
 
@@ -78,7 +96,10 @@
                     <div class="vuln-icon"><i data-lucide="key"></i></div>
                     <div class="vuln-content">
                         <h3>3. A weak Master Password</h3>
-                        <p>If your password is <code>"Password123"</code> or your dog's name, Argon2id will protect you for a bit, but a targeted dictionary attack will eventually find it in a few hours. <strong>Solution:</strong> Use a Passphrase of 5 or more random words (e.g. <code>"Ocean-Eclipse-Copper-Vortex-Silicon"</code>).</p>
+                        <p>If your password is <code>"Password123"</code> or your dog's name, Argon2id will protect you
+                            for a bit, but a targeted dictionary attack will eventually find it in a few hours.
+                            <strong>Solution:</strong> Use a Passphrase of 5 or more random words (e.g.
+                            <code>"Ocean-Eclipse-Copper-Vortex-Silicon"</code>).</p>
                     </div>
                 </div>
             </div>
@@ -96,4 +117,5 @@
         lucide.createIcons();
     </script>
 </body>
+
 </html>
